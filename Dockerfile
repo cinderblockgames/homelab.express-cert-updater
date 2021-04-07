@@ -1,5 +1,4 @@
 FROM ubuntu:18.04
-#FROM alpine
 
 LABEL maintainer="cinder block games <hello@cinderblockgames.com>"
 LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updater"
@@ -13,9 +12,7 @@ ADD crontab /etc/cron.d/simple-cron
 
 # Add shell script and grant execution rights
 ADD update-cert.sh /update-cert.sh
-#ADD update-cert.sh /etc/periodic/daily/update-cert.sh
 RUN chmod +x /update-cert.sh
-#RUN chmod +x /etc/periodic/daily/update-cert.sh
 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/simple-cron
@@ -25,4 +22,3 @@ RUN touch /var/log/cron.log
 
 # Run the command on container startup
 CMD /update-cert.sh && cron && tail -f /var/log/cron.log
-#CMD /etc/periodic/daily/update-cert.sh crond -f -l 8
