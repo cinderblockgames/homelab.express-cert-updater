@@ -6,4 +6,6 @@ LABEL homepage="https://homelab.express/"
 
 COPY ./src ./
 
+RUN chmod +x ./*.sh
+
 ENTRYPOINT [ "./entrypoint.sh" ]
