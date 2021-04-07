@@ -1,7 +1,11 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
+
+LABEL maintainer="cinder block games <hello@cinderblockgames.com>"
+LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updater"
+LABEL homepage="https://homelab.express/"
 
 # Install cron
-RUN apt-get install cron
+RUN apt-get update && apt-get install cron -y
 
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/simple-cron
