@@ -6,6 +6,4 @@ LABEL homepage="https://homelab.express/"
 
 COPY ./src ./
 
-RUN apk update && apk upgrade && apk add bash
-
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
