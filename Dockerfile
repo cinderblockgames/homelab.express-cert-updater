@@ -1,4 +1,4 @@
-FROM alpine:arm64/v8
+FROM arm64v8/alpine
 
 LABEL maintainer="cinder block games <hello@cinderblockgames.com>"
 LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updater"
