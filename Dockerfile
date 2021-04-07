@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+#FROM ubuntu:18.04
+FROM alpine
 
 LABEL maintainer="cinder block games <hello@cinderblockgames.com>"
 LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updater"
@@ -20,8 +21,5 @@ RUN chmod 0644 /etc/cron.d/simple-cron
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
 
-# Run the shell script at startup
-RUN /update-cert.sh
-
 # Run the command on container startup
-CMD cron && tail -f /var/log/cron.log
+CMD /update-cert.sh && cron && tail -f /var/log/cron.log
