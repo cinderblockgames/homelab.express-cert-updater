@@ -7,7 +7,7 @@ LABEL homepage="https://homelab.express/"
 
 # Install cron and wget
 #RUN apt-get update && apt-get install cron -y && apt-get install wget -y
-RUN apk update && apk add cron
+RUN apk add cron
 
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/simple-cron
