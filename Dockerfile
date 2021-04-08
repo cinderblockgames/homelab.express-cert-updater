@@ -13,4 +13,4 @@ RUN apt-get update && \
     chmod +x /update-cert.sh
 
 # Run the script on container startup and every day thereafter
-ENTRYPOINT [ "sh", "watch", "-n", "86400", "/update-cert.sh" ]
+ENTRYPOINT [ "/bin/sh", "watch", "-n", "86400", "/update-cert.sh" ]
