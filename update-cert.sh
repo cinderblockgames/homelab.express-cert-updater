@@ -1,38 +1,31 @@
+#!/bin/sh
+
 source="https://homelab.express/cert/"
 cer="wildcard.homelab.express.cer"
 key="wildcard.homelab.express.key"
 
-# not wild about doing it this way, but it works
+# download the new files
+wget "$source$cer" -O "/data/$cer"
+wget "$source$key" -O "/data/$key"
 
-while true; do
-
-  # download the new files
-  wget "$source$cer" -O "/$cer"
-  wget "$source$key" -O "/$key"
-
-  # check if they differ from the existing files (starting with key, since it's shorter)
-  matches=false
-  if cmp -s -- "/$key" "/certs/$key"; then
-    if cmp -s -- "/$cer" "/certs/$cer"; then
-      matches=true
-    fi
+# check if they differ from the existing files (starting with key, since it's shorter)
+matches=false
+if cmp -s -- "/data/$key" "/data/certs/$key"; then
+  if cmp -s -- "/data/$cer" "/data/certs/$cer"; then
+    matches=true
   fi
+fi
 
-  # update files if the new ones differ
-  if [ "$matches" = false ]; then
-    # back up current files
-    mv "/certs/$cer" "/certs/$cer.bak"
-    mv "/certs/$key" "/certs/$key.bak"
+# update files if the new ones differ
+if [ "$matches" = false ]; then
+  # back up current files
+  mv "/data/certs/$cer" "/data/certs/$cer.bak"
+  mv "/data/certs/$key" "/data/certs/$key.bak"
 
-    # copy the new files
-    mv "/$cer" "/certs/$cer"
-    mv "/$key" "/certs/$key"
+  # copy the new files
+  mv "/data/$cer" "/data/certs/$cer"
+  mv "/data/$key" "/data/certs/$key"
 
-    # touch dynamic.toml to alert that we've updated the cert
-    touch /dynamic.toml
-  fi
-
-  # pack it in for the day
-  sleep 86400
-
-done
+  # touch dynamic.toml to alert that we've updated the cert
+  touch /data/dynamic.toml
+fi
