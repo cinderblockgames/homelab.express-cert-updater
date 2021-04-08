@@ -4,23 +4,17 @@ LABEL maintainer="cinder block games <hello@cinderblockgames.com>"
 LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updater"
 LABEL homepage="https://homelab.express/"
 
-# Install cron and wget
+# Install wget
 RUN apt-get update && \
-    apt-get install cron -y && \
     apt-get install wget -y
-
-# Add crontab file in the cron directory
-COPY crontab /etc/cron.d/simple-cron
 
 # Add shell script
 COPY update-cert.sh /update-cert.sh
 
-# Grant execution rights and create the log file to be able to run tail
-RUN chmod +x /update-cert.sh && \
-    chmod 0644 /etc/cron.d/simple-cron && \
-    touch /var/log/cron.log
+# Install wget; grant execution rights
+RUN apt-get update && \
+    apt-get install wget -y && \
+    chmod +x /update-cert.sh
 
-# Run the command on container startup
-CMD /update-cert.sh && \
-    cron && \
-    tail -f /var/log/cron.log
+# Run the script on container startup (and every day thereafter)
+CMD /update-cert.sh
