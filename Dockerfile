@@ -19,4 +19,6 @@ RUN chmod +x /update-cert.sh && \
     touch /var/log/cron.log
 
 # Run the command on container startup
-CMD /update-cert.sh && cron && tail -f /var/log/cron.log
+CMD /update-cert.sh && \
+    cron && \
+    tail -f /var/log/cron.log
