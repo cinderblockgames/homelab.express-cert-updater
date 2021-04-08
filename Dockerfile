@@ -5,12 +5,13 @@ LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updat
 LABEL homepage="https://homelab.express/"
 
 # Add shell script
-COPY update-cert.sh /update-cert.sh
+COPY update-cert.sh /etc/periodic/daily/update-cert
 
 # Install wget; grant execution rights
 RUN apk update && \
     apk add wget && \
-    chmod +x /update-cert.sh
+    chmod +x /etc/periodic/daily/update-cert
 
-# Run the script on container startup (and every day thereafter)
-CMD /update-cert.sh
+# Run the script on container startup (and every day thereafter); keep crond in the foreground so that the container doesn't stop
+CMD /etc/periodic/daily/update-cert && \
+    crond -f
