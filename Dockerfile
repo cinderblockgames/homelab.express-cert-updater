@@ -8,17 +8,15 @@ LABEL homepage="https://homelab.express/"
 RUN apt-get update && apt-get install cron -y && apt-get install wget -y
 
 # Add crontab file in the cron directory
-ADD crontab /etc/cron.d/simple-cron
+COPY crontab /etc/cron.d/simple-cron
 
 # Add shell script and grant execution rights
-ADD update-cert.sh /update-cert.sh
-RUN chmod +x /update-cert.sh
+COPY update-cert.sh /update-cert.sh
 
-# Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/simple-cron
-
-# Create the log file to be able to run tail
-RUN touch /var/log/cron.log
+# Grant execution rights and create the log file to be able to run tail
+RUN chmod +x /update-cert.sh && \
+    chmod 0644 /etc/cron.d/simple-cron && \
+    touch /var/log/cron.log
 
 # Run the command on container startup
 CMD /update-cert.sh && cron && tail -f /var/log/cron.log
