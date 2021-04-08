@@ -5,12 +5,14 @@ LABEL repository="https://github.com/cinderblockgames/homelab.express-cert-updat
 LABEL homepage="https://homelab.express/"
 
 # Install cron and wget
-RUN apt-get update && apt-get install cron -y && apt-get install wget -y
+RUN apt-get update && \
+    apt-get install cron -y && \
+    apt-get install wget -y
 
 # Add crontab file in the cron directory
 COPY crontab /etc/cron.d/simple-cron
 
-# Add shell script and grant execution rights
+# Add shell script
 COPY update-cert.sh /update-cert.sh
 
 # Grant execution rights and create the log file to be able to run tail
