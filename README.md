@@ -6,7 +6,8 @@ Find more information on https://homelab.express.
 # Example docker-compose.yaml
 ```
   traefik-cert-updater:
-    image: 'cinderblockgames/homelab.express-cert-updater:v1.0.0'
+    image: 'cinderblockgames/homelab.express-cert-updater:latest'
+    #image: 'cinderblockgames/homelab.express-cert-updater:v1.0.0'
     container_name: 'traefik-cert-updater'
     restart: always
     volumes:
