@@ -1,6 +1,4 @@
 # homelab.express Cert Updater
-(based on https://github.com/cheyer/docker-cron)
-
 This container checks daily for updates to the free wildcard certificate provided by https://homelab.express and updates traefik with it if it has been updated.
 
 Find more information on https://homelab.express.
